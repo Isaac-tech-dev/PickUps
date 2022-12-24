@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Dispatch</string>
+
+    <!-- Hardcoding the price is for demo purpose only.
+    You shouldn't do this in prod -->
+    <string name="meal_price">Pay</string>
+    <string name="payment_prompt">Card details</string>
+    <string name="card_number">Card Number</string>
+    <string name="card_expiry">Card Expiry</string>
+    <string name="card_cvv">CVV</string>
+</resources>
