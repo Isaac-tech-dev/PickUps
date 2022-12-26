@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class Rider_View extends AppCompatActivity {
-    EditText pn,pw,rn,rno,ra;
+    EditText pn,pw,rn,rno,sa,ra;
     TextView na,nu,dn,am,l,id,dr;
     ImageView bc;
     String fid, order_id, name, mPhone, driver, pickup, amount, destination, ID;
@@ -58,6 +58,8 @@ public class Rider_View extends AppCompatActivity {
         pw = findViewById(R.id.PW);
         rn = findViewById(R.id.RN);
         rno = findViewById(R.id.RNO);
+        sa = findViewById(R.id.SA);
+        ra = findViewById(R.id.RA);
         sd = findViewById(R.id.button);
         loading = findViewById(R.id.progressBar);
 
@@ -110,14 +112,18 @@ public class Rider_View extends AppCompatActivity {
                 String nPW = pw.getText().toString().trim();
                 String nRN = rn.getText().toString().trim();
                 String nRNO = rno.getText().toString().trim();
+                String nRA = ra.getText().toString().trim();
+                String nSA = sa.getText().toString().trim();
 
-                if(!nPN.isEmpty() && !nPW.isEmpty() && !nRN.isEmpty() && !nRNO.isEmpty()){
+                if(!nPN.isEmpty() && !nPW.isEmpty() && !nRN.isEmpty() && !nRNO.isEmpty() && !nRA.isEmpty() && !nSA.isEmpty()){
                     Submit();
                 }else{
                     pn.setError("Type Package Name");
                     pw.setError("Type Package Weight");
                     rn.setError("Type Receiver Name");
                     rno.setError("Type Receiver Number");
+                    ra.setError("Type receiver address");
+                    sa.setError("Type sender address");
                 }
             }
         });
@@ -140,6 +146,8 @@ public class Rider_View extends AppCompatActivity {
         final String package_weight = this.pw.getText().toString().trim();
         final String receiver_name = this.rn.getText().toString().trim();
         final String receiver_number = this.rno.getText().toString().trim();
+        final String sender_address = this.sa.getText().toString().trim();
+        final String receiver_address = this.ra.getText().toString().trim();
         //String locate = location;
         //final String receiver_location = this.ra.getText().toString().trim();
 
@@ -154,9 +162,11 @@ public class Rider_View extends AppCompatActivity {
         intent.putExtra("package_weight", package_weight);
         intent.putExtra("receiver_name", receiver_name);
         intent.putExtra("receiver_number", receiver_number);
+        intent.putExtra("sender_address", sender_address);
+        intent.putExtra("receiver_address", receiver_address);
         Toast.makeText(this, "Order Taken", Toast.LENGTH_SHORT).show();
         startActivity(intent);
-        System.out.println(pickup);
+        //System.out.println(pickup);
         finish();
     }
 }

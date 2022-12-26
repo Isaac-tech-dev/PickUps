@@ -52,6 +52,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -66,6 +67,7 @@
                     android:padding="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:text="Sender Name"/>
 
                 <TextView
@@ -76,6 +78,7 @@
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
+                    android:visibility="gone"
                     android:text="Sender Name" />
 
                 <TextView
@@ -86,6 +89,7 @@
                     android:padding="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:text="Pickup"/>
 
             </RelativeLayout>
@@ -102,6 +106,7 @@
                     android:padding="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:text="Sender Phone"/>
 
                 <TextView
@@ -112,6 +117,7 @@
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
+                    android:visibility="gone"
                     android:text="Sender Phone" />
 
                 <TextView
@@ -122,6 +128,7 @@
                     android:layout_marginLeft="220dp"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
+                    android:visibility="gone"
                     android:text="Sender Phone" />
 
                 <TextView
@@ -132,6 +139,7 @@
                     android:padding="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:text="Dropoff"/>
 
             </RelativeLayout>
@@ -167,7 +175,7 @@
                 android:id="@+id/RN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Reciever Name"
+                android:hint="Receiver Name"
                 android:layout_marginTop="20dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
@@ -180,7 +188,33 @@
                 android:id="@+id/RNO"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Reciever Number"
+                android:hint="Receiver Number"
+                android:layout_marginTop="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingStart="15dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/border_grey"/>
+
+            <EditText
+                android:layout_below="@id/RNO"
+                android:id="@+id/SA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Sender Address"
+                android:layout_marginTop="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingStart="15dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/border_grey"/>
+
+            <EditText
+                android:layout_below="@id/SA"
+                android:id="@+id/RA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Receiver Address"
                 android:layout_marginTop="20dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
@@ -190,7 +224,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button"
-                android:layout_below="@id/RN"
+                android:layout_below="@id/RA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -202,7 +236,7 @@
                 app:cornerRadius="8sp"/>
             <ProgressBar
                 android:id="@+id/progressBar"
-                android:layout_below="@id/RN"
+                android:layout_below="@id/RA"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

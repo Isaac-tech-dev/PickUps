@@ -16,12 +16,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -95,11 +97,81 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
                 }
             }
         });
+
+        //Endpoints
+        String url_pickup = "https://spotters.tech/dispatch_app/android/product.php";
+        String url_dropoff = "https://spotters.tech/dispatch_app/android/product2.php";
+
+        //PICKUP SPINNER BEGINS...........................
+        //PICKUP SPINNER
+        JsonObjectRequest pickupjsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url_pickup, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("product");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String location = jsonObject.optString("pickup_state");
+                        pickuplist.add(location);
+                        pickupadapter = new ArrayAdapter<>(Dispatch.this, android.R.layout.simple_spinner_item, pickuplist);
+                        pickupadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner1.setAdapter(pickupadapter);
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(Dispatch.this, "Error!!!" + e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Dispatch.this, "Error!!!" + error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(pickupjsonObjectRequest);
+        //PICKUP SPINNER ENDS.....................
+
+        //Spinner Begins
+        //Complain Spinner
+        JsonObjectRequest destinationjsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url_dropoff, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("product");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String destination = jsonObject.optString("dropoff_state");
+                        destinationlist.add(destination);
+                        destinationadapter = new ArrayAdapter<>(Dispatch.this, android.R.layout.simple_spinner_item, destinationlist);
+                        destinationadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner2.setAdapter(destinationadapter);
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(Dispatch.this, "Error!!!" + e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Dispatch.this, "Error!!!" + error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(destinationjsonObjectRequest);
+        //Complain Spinner
     }
 
     private void Search() {
         Btn.setVisibility(View.GONE);
         loading.setVisibility(View.VISIBLE);
+
+        Intent state = new Intent(Dispatch.this,Rider_View.class);
+        state.putExtra("Location_address", mLocation);
+        state.putExtra("Destination_address", mDestination);
 
 
         pickup = this.PL.getText().toString().trim();
@@ -177,5 +249,11 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
         send.putExtra("ID", ID);
         startActivity(send);
         //System.out.println(location);
+    }
+    void buttonsender(View v) {
+        Intent send = new Intent(this, Track.class);
+        send.putExtra("KEY_SENDER", pickupadapter.getContext().toString());
+        send.putExtra("KEY_SENDER", destinationadapter.getContext().toString());
+        startActivity(send);
     }
 }

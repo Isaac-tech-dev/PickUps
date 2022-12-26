@@ -52,7 +52,7 @@ public class Pay extends AppCompatActivity {
     private TextInputLayout mCardExpiry;
     private TextInputLayout mCardCVV;
     SessionManager sessionManager;
-    String Reference, mLocation, mDestination,rider_id,rider_name, Amount, P_name, P_weight, R_phone, R_name;
+    String Reference, mLocation, mDestination,rider_id,rider_name, Amount, P_name, P_weight, R_phone, R_name, S_address, R_address;
     int amount;
 
     @SuppressLint("MissingInflatedId")
@@ -100,6 +100,8 @@ public class Pay extends AppCompatActivity {
         P_weight = getIntent().getStringExtra("package_weight");
         R_name = getIntent().getStringExtra("receiver_name");
         R_phone = getIntent().getStringExtra("receiver_number");
+        S_address = getIntent().getStringExtra("sender_address");
+        R_address = getIntent().getStringExtra("receiver_address");
 
         Amount = getIntent().getStringExtra("amount");
         amount = Integer.parseInt(Amount);
@@ -128,7 +130,7 @@ public class Pay extends AppCompatActivity {
 //        HashMap<String, String> user = sessionManager.getUserInfo();
 //
 
-        pass(fid,na,mPhone,rid,mLocation,mDestination,Reference,AMM,P_name,P_weight,R_name,R_phone);
+        pass(fid,na,mPhone,rid,mLocation,mDestination,Reference,AMM,P_name,P_weight,R_name,R_phone,S_address,R_address);
     }
 
     private void initializePaystack() {
@@ -280,7 +282,7 @@ public class Pay extends AppCompatActivity {
         }
     }
 
-    private void pass(String ID, String N, String P, String RID, String PL, String DE, String Ref, String cash, String PN,String PW, String RN, String RP){
+    private void pass(String ID, String N, String P, String RID, String PL, String DE, String Ref, String cash, String PN,String PW, String RN, String RP, String SA, String RA){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_MOVE, new Response.Listener<String>() {
             @Override
@@ -301,8 +303,10 @@ public class Pay extends AppCompatActivity {
                 send.put("sender_name", N);
                 send.put("sender_phone", P);
                 send.put("rider_id", RID);
-                send.put("sender_address", PL);
-                send.put("receiver_address" , DE);
+                send.put("sender_state", PL);
+                send.put("receiver_state" , DE);
+                send.put("sender_address", SA);
+                send.put("receiver_address" , RA);
                 send.put("order_id", Ref);
                 send.put("amount", cash);
                 send.put("package_name", PN);
