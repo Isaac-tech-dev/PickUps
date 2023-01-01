@@ -41,15 +41,19 @@ public class Track extends AppCompatActivity implements track_message.ItemClickL
     ImageView CALL, gif1,gif2;
     Button BTN;
     Button ts,ds;
-    String  Rider_name,Rider_number;
+    SessionManager sessionManager;
+    String  Rider_name,Rider_number, fid;
 
-    private static String url_track = "https://spotters.tech/dispatch_app/android/track_dispatch.php";
+    private static String url_track = "https://spotters.tech/dispatch-it/android/track_dispatch.php";
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track);
+
+        sessionManager = new SessionManager(this);
+        sessionManager.checkLogin();
 
         recyclerView = findViewById(R.id.track_recycle);
         //recyclerView2 = findViewById(R.id.dispatch_recycle);
@@ -91,6 +95,9 @@ public class Track extends AppCompatActivity implements track_message.ItemClickL
 
         //RNA.setText();
         //RNU.setText();
+
+        HashMap<String,String> user = sessionManager.getUserInfo();
+        fid = user.get(sessionManager.ID);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url_track, new Response.Listener<String>() {
             @Override
@@ -139,6 +146,7 @@ public class Track extends AppCompatActivity implements track_message.ItemClickL
             protected java.util.Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> track = new HashMap<>();
                 //track.put("reference", id);
+                track.put("sender_id", fid);
                 track.put("status", "Accepted");
                 return track ;
             }

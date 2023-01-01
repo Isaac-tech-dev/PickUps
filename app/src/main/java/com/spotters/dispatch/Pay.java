@@ -43,16 +43,16 @@ import co.paystack.android.model.Card;
 import co.paystack.android.model.Charge;
 
 public class Pay extends AppCompatActivity {
-    private static final String PSTK_PUBLIC_KEY = "pk_test_f069de6d29089c973072403107bf7eb255f4e1a1";
+    private static final String PSTK_PUBLIC_KEY = "pk_live_71cd7f037a29dc8da56e51a0e0ac239141ef8d10";
     TextView c_name,c_num,r_name,r_id,location,destination,money;
     String fid, E_mail;
-    private static String URL_MOVE ="https://spotters.tech/dispatch_app/android/dispatch_request.php";
+    private static String URL_MOVE ="https://spotters.tech/dispatch-it/android/dispatch_request.php";
 
     private TextInputLayout mCardNumber;
     private TextInputLayout mCardExpiry;
     private TextInputLayout mCardCVV;
     SessionManager sessionManager;
-    String Reference, mLocation, mDestination,rider_id,rider_name, Amount, P_name, P_weight, R_phone, R_name, S_address, R_address;
+    String Reference, mLocation, mDestination,rider_id,rider_name,rider_phone, Amount, P_name, P_weight, R_phone, R_name, S_address, R_address;
     int amount;
 
     @SuppressLint("MissingInflatedId")
@@ -95,6 +95,7 @@ public class Pay extends AppCompatActivity {
         rider_id = getIntent().getStringExtra("ID");
 
         rider_name = getIntent().getStringExtra("rider_name");
+        rider_phone = getIntent().getStringExtra("rider_phone");
 
         P_name = getIntent().getStringExtra("package_name");
         P_weight = getIntent().getStringExtra("package_weight");
@@ -130,7 +131,7 @@ public class Pay extends AppCompatActivity {
 //        HashMap<String, String> user = sessionManager.getUserInfo();
 //
 
-        pass(fid,na,mPhone,rid,mLocation,mDestination,Reference,AMM,P_name,P_weight,R_name,R_phone,S_address,R_address);
+        pass(fid,na,mPhone,rid,mLocation,mDestination,Reference,AMM,P_name,P_weight,R_name,R_phone,S_address,R_address,rider_name, rider_phone);
     }
 
     private void initializePaystack() {
@@ -212,7 +213,7 @@ public class Pay extends AppCompatActivity {
                     private void parseResponse(String reference) {
                         String message = "Payment Successful - " + reference;
                         Toast.makeText(Pay.this, message , Toast.LENGTH_SHORT).show();
-                        Intent Finish = new Intent(Pay.this, Dashboard.class);
+                        Intent Finish = new Intent(Pay.this, Payment_Successful.class);
                         //Intent trg = new Intent(Checkout.this,Track.class);
                         Finish.putExtra("reference", Reference);
                         //System.out.println(Reference);
@@ -262,7 +263,7 @@ public class Pay extends AppCompatActivity {
             try {
                 this.reference = reference[0];
                 String json = String.format("{\"reference\":\"%s\"}", this.reference);
-                String url1 = "https://spotters.tech/dispatch_app/android/pay.php" + json;
+                String url1 = "https://spotters.tech/dispatch-it/android/pay_live.php" + json;
                 URL url = new URL(url1);
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(
@@ -282,7 +283,7 @@ public class Pay extends AppCompatActivity {
         }
     }
 
-    private void pass(String ID, String N, String P, String RID, String PL, String DE, String Ref, String cash, String PN,String PW, String RN, String RP, String SA, String RA){
+    private void pass(String ID, String N, String P, String RID, String PL, String DE, String Ref, String cash, String PN,String PW, String RN, String RP, String SA, String RA, String RNA, String RPH){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_MOVE, new Response.Listener<String>() {
             @Override
@@ -313,6 +314,8 @@ public class Pay extends AppCompatActivity {
                 send.put("package_weight", PW);
                 send.put("receiver_name", RN);
                 send.put("receiver_phone", RP);
+                send.put("rider_name", RNA);
+                send.put("rider_phone", RPH);
                 send.put("status", "Pending");
                 return send;
             }

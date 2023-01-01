@@ -82,9 +82,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             String phone = object.getString("phone").trim();
                             String email = object.getString("email").trim();
                             String id = object.getString("id").trim();
-                            String sign_up_date = object.getString("sign_up_date").trim();
+                            //String sign_up_date = object.getString("sign_up_date").trim();
 
-                            sessionManager.createSession(firstname, lastname, phone, email, id, sign_up_date);
+                            sessionManager.createSession(firstname, lastname, phone, email, id);
 
                             Toast.makeText(Login.this, "Welcome", Toast.LENGTH_SHORT).show();
                             Intent gotoWelcomeActivity = new Intent(Login.this, Dashboard.class);

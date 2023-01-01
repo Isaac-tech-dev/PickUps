@@ -1,22 +1,32 @@
 package com.spotters.dispatch;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.Calendar;
 import java.util.HashMap;
 
 public class Dashboard extends AppCompatActivity {
-    TextView time, name;
+    TextView time;
     SessionManager sessionManager;
     String fn,ln,na;
     CardView DS,COMP,HI,TR;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle actionBarDrawerToggle;
+    NavigationView navigationView;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -25,7 +35,6 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         time = findViewById(R.id.prof);
-        name = findViewById(R.id.name);
 
         DS = findViewById(R.id.dispatch);
         COMP = findViewById(R.id.complaint);
@@ -41,7 +50,6 @@ public class Dashboard extends AppCompatActivity {
 
         na = fn + " " + ln;
 
-        name.setText(na);
 
 
         time.setText(Time());
@@ -78,19 +86,59 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(track);
             }
         });
+
+        setUpToolbar();
+        navigationView = (NavigationView) findViewById(R.id.side_navigation);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.track:
+                        Intent tracking = new Intent(Dashboard.this, Profile.class);
+                        startActivity(tracking);
+                        return true;
+
+                    case R.id.inbox:
+                        Intent message = new Intent(Dashboard.this, Inbox.class);
+                        startActivity(message);
+                        return true;
+
+                    case R.id.about:
+                        Intent about = new Intent(Dashboard.this, About.class);
+                        startActivity(about);
+                        return true;
+
+                    case R.id.logout:
+                        Intent logout = new Intent(Dashboard.this, Login.class);
+                        startActivity(logout);
+                        finish();
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void setUpToolbar() {
+        drawerLayout = findViewById(R.id.drawerLayout);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_name, R.string.app_name);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
     }
 
     private String Time() {
         Calendar time = Calendar.getInstance();
         int to = time.get(Calendar.HOUR_OF_DAY);
         if( to < 12){
-            return "Good Morning,";
+            return "Good Morning" + " " + fn;
         }else if( to < 16){
-            return "Good Afternoon,";
+            return "Good Afternoon" + " " + fn;
         }else if( to < 20){
-            return "Good Evening,";
+            return "Good Evening" + " " + fn;
         }else {
-            return "Good Night,";
+            return "Good Night" + " " + fn;
         }
     }
 }

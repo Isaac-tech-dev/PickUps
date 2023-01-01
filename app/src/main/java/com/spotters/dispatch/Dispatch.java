@@ -43,7 +43,7 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
     Button Btn;
     ImageView bk;
     ProgressBar loading;
-    String Amount, FN, LN, N, ID, mLocation, mDestination, pickup, dropoff;
+    String Amount, FN, LN, N, ID, mLocation, mDestination, pickup, dropoff, phone;
     Spinner spinner1, spinner2;
     ArrayList<String> pickuplist = new ArrayList<>();
     ArrayAdapter<String> pickupadapter;
@@ -51,7 +51,7 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
     ArrayAdapter<String> destinationadapter;
 
 
-    private static String url_rider = "https://spotters.tech/dispatch_app/android/driver_request.php";
+    private static String url_rider = "https://spotters.tech/dispatch-it/android/driver_request.php";
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -99,8 +99,8 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
         });
 
         //Endpoints
-        String url_pickup = "https://spotters.tech/dispatch_app/android/product.php";
-        String url_dropoff = "https://spotters.tech/dispatch_app/android/product2.php";
+        String url_pickup = "https://spotters.tech/dispatch-it/android/product.php";
+        String url_dropoff = "https://spotters.tech/dispatch-it/android/product2.php";
 
         //PICKUP SPINNER BEGINS...........................
         //PICKUP SPINNER
@@ -189,10 +189,11 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
                     for(int i =0; i<jsonArray.length(); i++){
                         JSONObject object = jsonArray.getJSONObject(i);
                         Amount = object.getString("amount").trim();
-                        FN = object.getString("firstname").trim();
-                        LN = object.getString("lastname").trim();
+                        FN = object.getString("rider_fn").trim();
+                        LN = object.getString("rider_ln").trim();
                         pickup = object.getString("location").trim();
                         dropoff = object.getString("destination").trim();
+                        phone = object.getString("rider_ph").trim();
                         ID = object.getString("ID").trim();
 
                         N = FN + " " + LN;
@@ -212,12 +213,14 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
                     DP.setText(null);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Btn.setVisibility(View.VISIBLE);
+                    Toast.makeText(Dispatch.this, "Location not found", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(Dispatch.this, "Location not found", Toast.LENGTH_SHORT).show();
             }
         }){
             @Nullable
@@ -245,6 +248,7 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
         send.putExtra("location", PL);
         send.putExtra("destination", DL);
         send.putExtra("name",NN);
+        send.putExtra("rider_phone", phone);
         send.putExtra("amount",AM);
         send.putExtra("ID", ID);
         startActivity(send);

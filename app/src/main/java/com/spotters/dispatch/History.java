@@ -36,7 +36,7 @@ public class History extends AppCompatActivity implements history_message.ItemCl
 
     String Pickup_location, Destination;
 
-    private static String url_history = "https://spotters.tech/dispatch_app/android/dispatch_history.php";
+    private static String url_history = "https://spotters.tech/dispatch-it/android/track_history.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

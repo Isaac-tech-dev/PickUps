@@ -33,7 +33,7 @@ public class Rider_View extends AppCompatActivity {
     EditText pn,pw,rn,rno,sa,ra;
     TextView na,nu,dn,am,l,id,dr;
     ImageView bc;
-    String fid, order_id, name, mPhone, driver, pickup, amount, destination, ID;
+    String fid, order_id, name, mPhone, rider_phone, driver, pickup, amount, destination, ID;
     //int amount;
     Button sd, ts,ds;
     ProgressBar loading;
@@ -78,6 +78,7 @@ public class Rider_View extends AppCompatActivity {
         name = fn + " " + ln;
 
         driver = getIntent().getStringExtra("name");
+        rider_phone = getIntent().getStringExtra("rider_phone");
         amount = getIntent().getStringExtra("amount");
         pickup = getIntent().getStringExtra("location");
         destination = getIntent().getStringExtra("destination");
@@ -157,6 +158,7 @@ public class Rider_View extends AppCompatActivity {
         intent.putExtra("destination", destination);
         intent.putExtra("ID", ID);
         intent.putExtra("rider_name", driver);
+        intent.putExtra("rider_phone", rider_phone);
         intent.putExtra("location", pickup);
         intent.putExtra("package_name", package_name);
         intent.putExtra("package_weight", package_weight);

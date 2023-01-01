@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <item
+        android:id="@+id/track"
+        android:title="Profile"
+        android:icon="@drawable/ic_account_circle"/>
+
+    <item
+        android:id="@+id/inbox"
+        android:title="Inbox"
+        android:icon="@drawable/ic_message"/>
+
+    <item
+        android:id="@+id/about"
+        android:title="About App"
+        android:icon="@drawable/ic_people"/>
+
+    <item
+        android:id="@+id/logout"
+        android:title="Sign Out"
+        android:icon="@drawable/ic_logout"/>
+
+</menu>
