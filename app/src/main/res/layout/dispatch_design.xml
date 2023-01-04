@@ -49,6 +49,7 @@
                 android:gravity="center_vertical"
                 android:padding="5dp"
                 android:text="TextView"
+                android:fontFamily="@font/poppins_medium"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -61,7 +62,8 @@
                 android:gravity="center_vertical"
                 android:padding="5dp"
                 android:text="To"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/dropoff"
@@ -72,6 +74,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
                 android:text="TextView"
+                android:fontFamily="@font/poppins_medium"
                 android:textStyle="bold"
                 android:textSize="15sp" />
 
@@ -79,7 +82,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -120,6 +124,7 @@
                 android:layout_marginLeft="70dp"
                 android:gravity="center_vertical"
                 android:text="TextView"
+                android:fontFamily="@font/poppins_medium"
                 android:textStyle="bold"
                 android:textSize="12dp" />
 
@@ -134,7 +139,8 @@
                 android:layout_height="wrap_content"
                 android:text="Online"
                 android:textColor="#00FF0A"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/select"
@@ -143,6 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="Select"
+                android:fontFamily="@font/montserrat_black"
                 android:backgroundTint="#656464"/>
 
         </RelativeLayout>

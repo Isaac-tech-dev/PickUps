@@ -43,7 +43,7 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
     Button Btn;
     ImageView bk;
     ProgressBar loading;
-    String Amount, FN, LN, N, ID, mLocation, mDestination, pickup, dropoff, phone;
+    String Amount, FN, LN, N, ID, mLocation, mDestination, pickup, dropoff, phone, C_id, C_com;
     Spinner spinner1, spinner2;
     ArrayList<String> pickuplist = new ArrayList<>();
     ArrayAdapter<String> pickupadapter;
@@ -51,7 +51,7 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
     ArrayAdapter<String> destinationadapter;
 
 
-    private static String url_rider = "https://spotters.tech/dispatch-it/android/driver_request.php";
+    private static String url_rider = "https://spotters.tech/dispatch-it/android/driver_request2.php";
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -188,21 +188,23 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
                     JSONArray jsonArray = new JSONArray(response);
                     for(int i =0; i<jsonArray.length(); i++){
                         JSONObject object = jsonArray.getJSONObject(i);
-                        Amount = object.getString("amount").trim();
-                        FN = object.getString("rider_fn").trim();
-                        LN = object.getString("rider_ln").trim();
-                        pickup = object.getString("location").trim();
-                        dropoff = object.getString("destination").trim();
-                        phone = object.getString("rider_ph").trim();
-                        ID = object.getString("ID").trim();
+                        Amount = object.getString("price").trim();
+                        //FN = object.getString("rider_fn").trim();
+                        //LN = object.getString("rider_ln").trim();
+                        pickup = object.getString("pickup_state").trim();
+                        dropoff = object.getString("dropoff_state").trim();
+                        C_id = object.getString("id").trim();
+                        C_com = object.getString("created_by_company").trim();
+                        //phone = object.getString("rider_ph").trim();
+                        //ID = object.getString("ID").trim();
 
-                        N = FN + " " + LN;
+                        //N = FN + " " + LN;
 
-                        System.out.println(dropoff);
+                        //System.out.println(dropoff);
                         //String ID = object.getString("reference").trim();
 
                         //int amount = Integer.parseInt(Amount);
-                        show1 show = new show1(N, pickup, dropoff, Amount);
+                        show1 show = new show1(pickup, dropoff, Amount);
                         driverlist.add(0,show);
                     }
                     adapter = new dispatch_adapter(driverlist, Dispatch.this);
@@ -227,8 +229,8 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> get = new HashMap<>();
-                get.put("location", pickup);
-                get.put("destination", dropoff);
+                get.put("pickup_state", pickup);
+                get.put("dropoff_state", dropoff);
                 get.put("status", "Online");
                 return get;
             }
@@ -239,7 +241,7 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
 
     @Override
     public void onItemClick(show1 show1) {
-        String NN = show1.getName();
+        //String NN = show1.getName();
         String AM = show1.getAmount();
         String PL = show1.getPickup();
         String DL = show1.getDestination();
@@ -247,8 +249,10 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
         Intent send = new Intent(Dispatch.this,Rider_View.class);
         send.putExtra("location", PL);
         send.putExtra("destination", DL);
-        send.putExtra("name",NN);
-        send.putExtra("rider_phone", phone);
+        send.putExtra("created_id", C_id);
+        send.putExtra("created_company", C_com);
+        //send.putExtra("name",NN);
+        //send.putExtra("rider_phone", phone);
         send.putExtra("amount",AM);
         send.putExtra("ID", ID);
         startActivity(send);

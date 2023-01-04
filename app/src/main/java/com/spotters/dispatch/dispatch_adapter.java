@@ -30,7 +30,7 @@ public class dispatch_adapter extends RecyclerView.Adapter<dispatch_adapter.Adap
 
     @Override
     public void onBindViewHolder(@NonNull dispatch_adapter.AdapterViewHolder holder, int position) {
-        holder.name.setText(driverlist.get(position).getName());
+        //holder.name.setText(driverlist.get(position).getName());
         //holder.l_name.setText(driverlist.get(position).getLastname());
         holder.amount.setText(driverlist.get(position).getAmount());
         holder.pickup.setText(driverlist.get(position).getPickup());
@@ -55,7 +55,7 @@ public class dispatch_adapter extends RecyclerView.Adapter<dispatch_adapter.Adap
         Button Btn;
         public AdapterViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.rider);
+            //name = itemView.findViewById(R.id.rider);
             //l_name = itemView.findViewById(R.id.lastname);
             pickup = itemView.findViewById(R.id.pickup);
             destination = itemView.findViewById(R.id.dropoff);

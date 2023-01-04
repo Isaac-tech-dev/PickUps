@@ -11,7 +11,7 @@
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/primary">
+        android:backgroundTint="@color/primary2">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Dispatch"
+                android:fontFamily="@font/montserrat_black"
                 android:padding="10sp"
                 android:textSize="20sp"
                 android:textColor="@color/white"
@@ -187,8 +188,9 @@
         android:layout_below="@id/box2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:backgroundTint="@color/primary"
-        android:text="Serach" />
+        android:backgroundTint="@color/primary2"
+        android:text="Serach"
+        android:fontFamily="@font/montserrat_black"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -212,7 +214,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rider_recycle"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="invisible"/>

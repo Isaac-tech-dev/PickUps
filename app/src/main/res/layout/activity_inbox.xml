@@ -10,7 +10,7 @@
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/primary">
+        android:backgroundTint="@color/primary4">
 
         <RelativeLayout
             android:layout_width="match_parent"

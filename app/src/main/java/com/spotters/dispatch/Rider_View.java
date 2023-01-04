@@ -31,9 +31,9 @@ import java.util.Random;
 
 public class Rider_View extends AppCompatActivity {
     EditText pn,pw,rn,rno,sa,ra;
-    TextView na,nu,dn,am,l,id,dr;
+    TextView na,nu,dn,am,l,id,dr, cid, ccom;
     ImageView bc;
-    String fid, order_id, name, mPhone, rider_phone, driver, pickup, amount, destination, ID;
+    String fid, order_id, name, mPhone, rider_phone, driver, pickup, amount, destination, ID, C_id, C_com;
     //int amount;
     Button sd, ts,ds;
     ProgressBar loading;
@@ -63,6 +63,9 @@ public class Rider_View extends AppCompatActivity {
         sd = findViewById(R.id.button);
         loading = findViewById(R.id.progressBar);
 
+        cid = findViewById(R.id.cid);
+        ccom = findViewById(R.id.ccom);
+
         sessionManager = new SessionManager(this);
         sessionManager.checkLogin();
 
@@ -77,12 +80,14 @@ public class Rider_View extends AppCompatActivity {
 
         name = fn + " " + ln;
 
-        driver = getIntent().getStringExtra("name");
-        rider_phone = getIntent().getStringExtra("rider_phone");
+        //driver = getIntent().getStringExtra("name");
+        //rider_phone = getIntent().getStringExtra("rider_phone");
         amount = getIntent().getStringExtra("amount");
         pickup = getIntent().getStringExtra("location");
         destination = getIntent().getStringExtra("destination");
         ID = getIntent().getStringExtra("ID");
+        C_id = getIntent().getStringExtra("created_id");
+        C_com = getIntent().getStringExtra("created_company");
 
         //String location = pickup;
 
@@ -96,6 +101,9 @@ public class Rider_View extends AppCompatActivity {
         l.setText(pickup);
         id.setText(ID);
         dr.setText(destination);
+
+        cid.setText(C_id);
+        ccom.setText(C_com);
 
         bc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,8 +165,8 @@ public class Rider_View extends AppCompatActivity {
         intent.putExtra("order_id", order);
         intent.putExtra("destination", destination);
         intent.putExtra("ID", ID);
-        intent.putExtra("rider_name", driver);
-        intent.putExtra("rider_phone", rider_phone);
+        //intent.putExtra("rider_name", driver);
+        //intent.putExtra("rider_phone", rider_phone);
         intent.putExtra("location", pickup);
         intent.putExtra("package_name", package_name);
         intent.putExtra("package_weight", package_weight);
@@ -166,7 +174,9 @@ public class Rider_View extends AppCompatActivity {
         intent.putExtra("receiver_number", receiver_number);
         intent.putExtra("sender_address", sender_address);
         intent.putExtra("receiver_address", receiver_address);
-        Toast.makeText(this, "Order Taken", Toast.LENGTH_SHORT).show();
+        intent.putExtra("created_id", C_id);
+        intent.putExtra("created_company", C_com);
+        //Toast.makeText(this, "Order Taken", Toast.LENGTH_SHORT).show();
         startActivity(intent);
         //System.out.println(pickup);
         finish();

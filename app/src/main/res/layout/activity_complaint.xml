@@ -11,7 +11,7 @@
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/primary">
+        android:backgroundTint="@color/primary2">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Select complaint type"
-            android:textColor="@color/primary"
+            android:textColor="@color/primary5"
             android:textSize="20sp" />
         <androidx.cardview.widget.CardView
             android:id="@+id/comp"
@@ -101,11 +101,11 @@
         android:layout_below="@+id/complain"
         android:layout_marginHorizontal="80dp"
         android:layout_marginTop="40dp"
-        android:backgroundTint="@color/primary"
+        android:backgroundTint="@color/primary2"
         android:gravity="center"
         android:text="SUBMIT"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:cornerRadius="10dp" />
+        app:cornerRadius="8dp" />
 
 </RelativeLayout>

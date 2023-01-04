@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,8 +44,10 @@ import co.paystack.android.model.Card;
 import co.paystack.android.model.Charge;
 
 public class Pay extends AppCompatActivity {
-    private static final String PSTK_PUBLIC_KEY = "pk_live_71cd7f037a29dc8da56e51a0e0ac239141ef8d10";
-    TextView c_name,c_num,r_name,r_id,location,destination,money;
+    private static final String PSTK_PUBLIC_KEY = "pk_test_f069de6d29089c973072403107bf7eb255f4e1a1";
+    //private static final String PSTK_PUBLIC_KEY = "pk_live_71cd7f037a29dc8da56e51a0e0ac239141ef8d10";
+    TextView c_name,c_num,r_name,r_id,location,destination,money, cid, ccom;
+    ImageView Btnback;
     String fid, E_mail;
     private static String URL_MOVE ="https://spotters.tech/dispatch-it/android/dispatch_request.php";
 
@@ -52,7 +55,7 @@ public class Pay extends AppCompatActivity {
     private TextInputLayout mCardExpiry;
     private TextInputLayout mCardCVV;
     SessionManager sessionManager;
-    String Reference, mLocation, mDestination,rider_id,rider_name,rider_phone, Amount, P_name, P_weight, R_phone, R_name, S_address, R_address;
+    String Reference, mLocation, mDestination,rider_id,rider_name,rider_phone, Amount, P_name, P_weight, R_phone, R_name, S_address, R_address, C_id, C_com;
     int amount;
 
     @SuppressLint("MissingInflatedId")
@@ -74,6 +77,10 @@ public class Pay extends AppCompatActivity {
        location = findViewById(R.id.location);
        destination = findViewById(R.id.destination);
        money = findViewById(R.id.price);
+       Btnback = findViewById(R.id.back);
+
+       cid = findViewById(R.id.cid);
+       ccom = findViewById(R.id.ccom);
 
         HashMap<String, String> user = sessionManager.getUserInfo();
         fid = user.get(sessionManager.ID);
@@ -92,10 +99,10 @@ public class Pay extends AppCompatActivity {
         //System.out.println(Reference);
         final String na = fn + " " + ln;
 
-        rider_id = getIntent().getStringExtra("ID");
+        //rider_id = getIntent().getStringExtra("ID");
 
-        rider_name = getIntent().getStringExtra("rider_name");
-        rider_phone = getIntent().getStringExtra("rider_phone");
+        //rider_name = getIntent().getStringExtra("rider_name");
+        //rider_phone = getIntent().getStringExtra("rider_phone");
 
         P_name = getIntent().getStringExtra("package_name");
         P_weight = getIntent().getStringExtra("package_weight");
@@ -103,6 +110,8 @@ public class Pay extends AppCompatActivity {
         R_phone = getIntent().getStringExtra("receiver_number");
         S_address = getIntent().getStringExtra("sender_address");
         R_address = getIntent().getStringExtra("receiver_address");
+        C_id = getIntent().getStringExtra("created_id");
+        C_com = getIntent().getStringExtra("created_company");
 
         Amount = getIntent().getStringExtra("amount");
         amount = Integer.parseInt(Amount);
@@ -125,13 +134,23 @@ public class Pay extends AppCompatActivity {
         location.setText(mLocation);
         destination.setText(mDestination);
         money.setText(AMM);
+
+        cid.setText(C_id);
+        ccom.setText(C_com);
 //        sessionManager = new SessionManager(this);
 //        sessionManager.checkLogin();
 //
 //        HashMap<String, String> user = sessionManager.getUserInfo();
+
+        Btnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 //
 
-        pass(fid,na,mPhone,rid,mLocation,mDestination,Reference,AMM,P_name,P_weight,R_name,R_phone,S_address,R_address,rider_name, rider_phone);
+        pass(fid,na,mPhone,rid,mLocation,mDestination,Reference,AMM,P_name,P_weight,R_name,R_phone,S_address,R_address,rider_name, rider_phone, C_id, C_com);
     }
 
     private void initializePaystack() {
@@ -263,7 +282,7 @@ public class Pay extends AppCompatActivity {
             try {
                 this.reference = reference[0];
                 String json = String.format("{\"reference\":\"%s\"}", this.reference);
-                String url1 = "https://spotters.tech/dispatch-it/android/pay_live.php" + json;
+                String url1 = "https://spotters.tech/dispatch-it/android/pay.php" + json;
                 URL url = new URL(url1);
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(
@@ -283,7 +302,7 @@ public class Pay extends AppCompatActivity {
         }
     }
 
-    private void pass(String ID, String N, String P, String RID, String PL, String DE, String Ref, String cash, String PN,String PW, String RN, String RP, String SA, String RA, String RNA, String RPH){
+    private void pass(String ID, String N, String P, String RID, String PL, String DE, String Ref, String cash, String PN,String PW, String RN, String RP, String SA, String RA, String RNA, String RPH, String CID, String CCOM){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_MOVE, new Response.Listener<String>() {
             @Override
@@ -303,7 +322,7 @@ public class Pay extends AppCompatActivity {
                 send.put("sender_id", ID);
                 send.put("sender_name", N);
                 send.put("sender_phone", P);
-                send.put("rider_id", RID);
+                //send.put("rider_id", RID);
                 send.put("sender_state", PL);
                 send.put("receiver_state" , DE);
                 send.put("sender_address", SA);
@@ -314,8 +333,10 @@ public class Pay extends AppCompatActivity {
                 send.put("package_weight", PW);
                 send.put("receiver_name", RN);
                 send.put("receiver_phone", RP);
-                send.put("rider_name", RNA);
-                send.put("rider_phone", RPH);
+                //send.put("rider_name", RNA);
+                //send.put("rider_phone", RPH);
+                send.put("created_by_id", CID);
+                send.put("created_by_company", CCOM);
                 send.put("status", "Pending");
                 return send;
             }

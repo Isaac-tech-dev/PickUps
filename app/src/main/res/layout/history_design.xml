@@ -24,6 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Order ID"
+                android:fontFamily="@font/poppins_medium"
                 android:textSize="20sp"/>
 
         </LinearLayout>
@@ -50,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="----------"
+                    android:fontFamily="@font/poppins_medium"
                     android:visibility="invisible"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
@@ -80,6 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="----------"
+                    android:fontFamily="@font/poppins_medium"
                     android:visibility="invisible"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
@@ -127,13 +130,15 @@
                 android:layout_alignParentLeft="true"
                 android:gravity="center"
                 android:text="Completed"
-                android:textColor="#00FF0C"/>
+                android:fontFamily="@font/montserrat_black"
+                android:textColor="@color/button"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:backgroundTint="@color/primary"
+                android:backgroundTint="@color/primary5"
+                android:fontFamily="@font/montserrat_black"
                 android:text="Details"/>
 
         </RelativeLayout>

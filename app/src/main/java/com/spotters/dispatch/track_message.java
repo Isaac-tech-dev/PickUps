@@ -26,7 +26,7 @@ public class track_message extends RecyclerView.Adapter<track_message.AdapterVie
     @NonNull
     @Override
     public track_message.AdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_design, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_design2, parent, false);
         return new AdapterViewHolder(view);
     }
 
@@ -35,9 +35,13 @@ public class track_message extends RecyclerView.Adapter<track_message.AdapterVie
         holder.RNA.setText(messagelist.get(position).getRider_name());
         holder.RNU.setText(messagelist.get(position).getRider_phone());
         holder.ORDER.setText(messagelist.get(position).getReference());
+        holder.SAD.setText(messagelist.get(position).getSender_address());
+        holder.RAD.setText(messagelist.get(position).getReceiver_address());
+        holder.AM.setText(messagelist.get(position).getAmount());
 
         holder.RNA.setVisibility(View.VISIBLE);
         holder.RNU.setVisibility(View.VISIBLE);
+        holder.CALL.setVisibility(View.VISIBLE);
 
         //holder.gif1.setVisibility(View.GONE);
         //holder.gif2.setVisibility(View.GONE);
@@ -58,13 +62,17 @@ public class track_message extends RecyclerView.Adapter<track_message.AdapterVie
     }
 
     public class AdapterViewHolder extends RecyclerView.ViewHolder {
-        TextView RNA, RNU, ORDER;
-        ImageView gif1,gif2;
+        TextView RNA, RNU, ORDER, SAD, RAD, AM;
+        ImageView CALL,gif2;
         public AdapterViewHolder(@NonNull View itemView) {
             super(itemView);
-            RNA = itemView.findViewById(R.id.name);
-            RNU = itemView.findViewById(R.id.number);
+            RNA = itemView.findViewById(R.id.rider_name);
+            RNU = itemView.findViewById(R.id.rider_number);
             ORDER = itemView.findViewById(R.id.ID);
+            SAD = itemView.findViewById(R.id.sender_address);
+            RAD = itemView.findViewById(R.id.receiver_address);
+            AM = itemView.findViewById(R.id.price);
+            CALL = itemView.findViewById(R.id.call);
 
             //gif1 = itemView.findViewById(R.id.gif1);
             //gif2 = itemView.findViewById(R.id.gif2);

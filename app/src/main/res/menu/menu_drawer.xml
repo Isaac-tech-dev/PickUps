@@ -4,9 +4,14 @@
     tools:ignore="HardcodedText">
 
     <item
-        android:id="@+id/track"
+        android:id="@+id/profile"
         android:title="Profile"
         android:icon="@drawable/ic_account_circle"/>
+
+    <item
+        android:id="@+id/complaint"
+        android:title="Complaint"
+        android:icon="@drawable/customer_support"/>
 
     <item
         android:id="@+id/inbox"

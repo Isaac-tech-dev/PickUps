@@ -93,9 +93,14 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.track:
+                    case R.id.profile:
                         Intent tracking = new Intent(Dashboard.this, Profile.class);
                         startActivity(tracking);
+                        return true;
+
+                    case R.id.complaint:
+                        Intent complaint = new Intent(Dashboard.this, Complaint.class);
+                        startActivity(complaint);
                         return true;
 
                     case R.id.inbox:
@@ -132,13 +137,13 @@ public class Dashboard extends AppCompatActivity {
         Calendar time = Calendar.getInstance();
         int to = time.get(Calendar.HOUR_OF_DAY);
         if( to < 12){
-            return "Good Morning" + " " + fn;
+            return "Good Morning," + " " + fn;
         }else if( to < 16){
-            return "Good Afternoon" + " " + fn;
+            return "Good Afternoon," + " " + fn;
         }else if( to < 20){
-            return "Good Evening" + " " + fn;
+            return "Good Evening," + " " + fn;
         }else {
-            return "Good Night" + " " + fn;
+            return "Good Night," + " " + fn;
         }
     }
 }

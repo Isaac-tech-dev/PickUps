@@ -1,12 +1,8 @@
 package com.spotters.dispatch;
 
 public class show1 {
-    private String name, pickup, destination, amount;
+    private String pickup, destination, amount;
     //private int amount;
-
-    public String getName() {
-        return name;
-    }
 
     public String getAmount() {
         return amount;
@@ -20,8 +16,7 @@ public class show1 {
         return destination;
     }
 
-    public show1(String name, String pickup, String destination, String amount) {
-        this.name = name;
+    public show1(String pickup, String destination, String amount) {
         this.amount = amount;
         this.pickup = pickup;
         this.destination = destination;
