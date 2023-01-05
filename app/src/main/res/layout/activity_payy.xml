@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Payy">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary2">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Payment"
+                android:fontFamily="@font/montserrat_black"
+                android:padding="10sp"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:gravity="center_horizontal"/>
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_arrow_back" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:padding="10dp"
+        android:layout_below="@id/top"
+        android:id="@+id/tv_payment_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/payment_prompt"
+        android:fontFamily="@font/montserrat_black"
+        android:textSize="@dimen/text_24"
+        android:textColor="@color/primary2"/>
+
+    <LinearLayout
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_below="@id/tv_payment_prompt">
+
+        <EditText
+            android:id="@+id/til_card_number"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Card Number"
+            android:inputType="number"
+            android:background="@drawable/border_grey"/>
+
+        <RelativeLayout
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/til_card_expiry"
+                android:layout_alignParentLeft="true"
+                android:padding="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Card Expiry"
+                android:background="@drawable/border_grey"/>
+
+            <EditText
+                android:id="@+id/til_card_cvv"
+                android:layout_alignParentRight="true"
+                android:padding="15dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="CVV"
+                android:inputType="number"
+                android:background="@drawable/border_grey"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/details"
+        android:layout_marginHorizontal="20dp"
+        android:id="@+id/btn_make_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/meal_price"
+        android:fontFamily="@font/montserrat_black"
+        app:hintTextColor="@color/black"
+        android:textStyle="bold"
+        android:backgroundTint="@color/primary2"/>
+    <ProgressBar
+        android:layout_below="@id/details"
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/primary2"
+        tools:ignore="MissingConstraints"/>
+
+</RelativeLayout>

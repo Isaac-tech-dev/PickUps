@@ -40,8 +40,9 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
     RecyclerView recyclerView;
     dispatch_adapter adapter;
     ArrayList<show1> driverlist = new ArrayList<>();
+    View oops;
     EditText PL, DP;
-    Button Btn;
+    Button Btn, clear;
     ImageView bk;
     ProgressBar loading;
     String Amount, FN, LN, N, ID, mLocation, mDestination, pickup, dropoff, phone, C_id, C_com,locate, destinate, locate1, destinate2;
@@ -63,9 +64,11 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
         //PL = findViewById(R.id.input_search);
         //DP = findViewById(R.id.input_destination);
         Btn = findViewById(R.id.search);
+        clear = findViewById(R.id.clear);
         loading = findViewById(R.id.progressBar);
         recyclerView = findViewById(R.id.rider_recycle);
         bk = findViewById(R.id.back);
+        oops = findViewById(R.id.oops);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         spinner1 = findViewById(R.id.pickup_spinner);
@@ -98,6 +101,14 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
 //                    PL.setError("Type Location");
 //                    DP.setError("Type Destination");
 //                }
+            }
+        });
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mintent = getIntent();
+                finish();
+                startActivity(mintent);
             }
         });
 
@@ -156,7 +167,7 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String destination = jsonObject.optString("drop_off_location");
-                        System.out.println(destination);
+                        //System.out.println(destination);
                         destinationlist.add(destination);
                         destinationadapter = new ArrayAdapter<>(Dispatch.this, android.R.layout.simple_spinner_item, destinationlist);
                         destinationadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -192,7 +203,10 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
 
     private void Search() {
         Btn.setVisibility(View.GONE);
+        clear.setVisibility(View.GONE);
         loading.setVisibility(View.VISIBLE);
+        oops.setVisibility(View.GONE);
+
 
         Intent state = new Intent(Dispatch.this,Rider_View.class);
         state.putExtra("Location_address", mLocation);
@@ -234,9 +248,17 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
                     }
                     adapter = new dispatch_adapter(driverlist, Dispatch.this);
                     recyclerView.setAdapter(adapter);
+                    int count = 0;
+                    count = adapter.getItemCount();
+                    if(count == 0){
+                        oops.setVisibility(View.VISIBLE);
+                        Toast.makeText(Dispatch.this, "Location not found", Toast.LENGTH_SHORT).show();
+                    }
 
                     Btn.setVisibility(View.VISIBLE);
+                    clear.setVisibility(View.VISIBLE);
                     loading.setVisibility(View.GONE);
+
 
                     //PL.setText(null);
                     //DP.setText(null);

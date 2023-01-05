@@ -65,17 +65,13 @@
         app:hintTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_payment_prompt"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        app:layout_constraintTop_toBottomOf="@id/tv_payment_prompt">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="number"
-            android:background="@drawable/border_grey"
-            android:textColor="@color/black">
-
-        </com.google.android.material.textfield.TextInputEditText>
+            android:background="@drawable/border_grey"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,15 +86,13 @@
         app:hintTextColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/til_card_number"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/til_card_cvv"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        app:layout_constraintRight_toLeftOf="@id/til_card_cvv">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="text"
-            android:background="@drawable/border_grey"
-            android:textColor="@color/black">
+            android:background="@drawable/border_grey">
 
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -115,15 +109,13 @@
         app:hintTextColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/til_card_number"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/til_card_expiry"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        app:layout_constraintLeft_toRightOf="@id/til_card_expiry">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number"
-            android:background="@drawable/border_grey"
-            android:textColor="@color/black">
+            android:background="@drawable/border_grey">
 
         </com.google.android.material.textfield.TextInputEditText>
 

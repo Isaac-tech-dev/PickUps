@@ -160,7 +160,7 @@ public class Rider_View extends AppCompatActivity {
         //String locate = location;
         //final String receiver_location = this.ra.getText().toString().trim();
 
-        Intent intent = new Intent(Rider_View.this, Pay.class);
+        Intent intent = new Intent(Rider_View.this, Payy.class);
         intent.putExtra("amount", amount);
         intent.putExtra("order_id", order);
         intent.putExtra("destination", destination);

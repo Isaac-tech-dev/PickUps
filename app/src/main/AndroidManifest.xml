@@ -15,6 +15,13 @@
         android:theme="@style/Theme.Dispatch"
         tools:targetApi="31">
         <activity
+            android:name=".Payy"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Details"
             android:exported="false">
             <meta-data
@@ -66,7 +73,7 @@
 
         <meta-data
             android:name="co.paystack.android.PublicKey"
-            android:value="pk_test_f069de6d29089c973072403107bf7eb255f4e1a1" />
+            android:value="pk_live_71cd7f037a29dc8da56e51a0e0ac239141ef8d10" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

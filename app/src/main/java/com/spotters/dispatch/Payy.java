@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,7 +44,7 @@ import co.paystack.android.design.widget.BuildConfig;
 import co.paystack.android.model.Card;
 import co.paystack.android.model.Charge;
 
-public class Pay extends AppCompatActivity {
+public class Payy extends AppCompatActivity {
     //private static final String PSTK_PUBLIC_KEY = "pk_test_f069de6d29089c973072403107bf7eb255f4e1a1";
     private static final String PSTK_PUBLIC_KEY = "pk_live_71cd7f037a29dc8da56e51a0e0ac239141ef8d10";
     TextView c_name,c_num,r_name,r_id,location,destination,money, cid, ccom;
@@ -51,9 +52,9 @@ public class Pay extends AppCompatActivity {
     String fid, E_mail;
     private static String URL_MOVE ="https://spotters.tech/dispatch-it/android/dispatch_request.php";
 
-    private TextInputLayout mCardNumber;
-    private TextInputLayout mCardExpiry;
-    private TextInputLayout mCardCVV;
+    private EditText mCardNumber;
+    private EditText mCardExpiry;
+    private EditText mCardCVV;
     SessionManager sessionManager;
     String na, mPhone, rid, AMM, Reference, mLocation, mDestination,rider_id,rider_name,rider_phone, Amount, P_name, P_weight, R_phone, R_name, S_address, R_address, C_id, C_com;
     int amount;
@@ -62,25 +63,25 @@ public class Pay extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pay);
+        setContentView(R.layout.activity_payy);
 
         initializePaystack();
         initializeFormVariables();
 
-        sessionManager = new SessionManager(Pay.this);
+        sessionManager = new SessionManager(Payy.this);
         sessionManager.checkLogin();
 
-       c_name = findViewById(R.id.c_name);
-       c_num = findViewById(R.id.c_num);
-       r_name = findViewById(R.id.r_name);
-       r_id = findViewById(R.id.r_id);
-       location = findViewById(R.id.location);
-       destination = findViewById(R.id.destination);
-       money = findViewById(R.id.price);
-       Btnback = findViewById(R.id.back);
+        c_name = findViewById(R.id.c_name);
+        c_num = findViewById(R.id.c_num);
+        r_name = findViewById(R.id.r_name);
+        r_id = findViewById(R.id.r_id);
+        location = findViewById(R.id.location);
+        destination = findViewById(R.id.destination);
+        money = findViewById(R.id.price);
+        Btnback = findViewById(R.id.back);
 
-       cid = findViewById(R.id.cid);
-       ccom = findViewById(R.id.ccom);
+        cid = findViewById(R.id.cid);
+        ccom = findViewById(R.id.ccom);
 
         HashMap<String, String> user = sessionManager.getUserInfo();
         fid = user.get(sessionManager.ID);
@@ -127,16 +128,16 @@ public class Pay extends AppCompatActivity {
         //final String EMM = String.valueOf(mEMAIL);
 
         //phh.setText(mPhone);
-        c_name.setText(na);
-        c_num.setText(mPhone);
-        r_name.setText(rider_name);
-        r_id.setText(rid);
-        location.setText(mLocation);
-        destination.setText(mDestination);
-        money.setText(AMM);
-
-        cid.setText(C_id);
-        ccom.setText(C_com);
+//        c_name.setText(na);
+//        c_num.setText(mPhone);
+//        r_name.setText(rider_name);
+//        r_id.setText(rid);
+//        location.setText(mLocation);
+//        destination.setText(mDestination);
+//        money.setText(AMM);
+//
+//        cid.setText(C_id);
+//        ccom.setText(C_com);
 //        sessionManager = new SessionManager(this);
 //        sessionManager.checkLogin();
 //
@@ -170,7 +171,7 @@ public class Pay extends AppCompatActivity {
         // and year (11/21). After the month is entered, a forward slash is added
         // before the year
 
-        Objects.requireNonNull(mCardExpiry.getEditText()).addTextChangedListener(new TextWatcher() {
+        Objects.requireNonNull(mCardExpiry).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -207,9 +208,9 @@ public class Pay extends AppCompatActivity {
 
                 //int cash = getIntent().getIntExtra("Amount", 0);
 
-                String cardNumber = mCardNumber.getEditText().getText().toString();
-                String cardExpiry = mCardExpiry.getEditText().getText().toString();
-                String cvv = mCardCVV.getEditText().getText().toString();
+                String cardNumber = mCardNumber.getText().toString();
+                String cardExpiry = mCardExpiry.getText().toString();
+                String cvv = mCardCVV.getText().toString();
 
                 String[] cardExpiryArray = cardExpiry.split("/");
                 int expiryMonth = Integer.parseInt(cardExpiryArray[0]);
@@ -226,7 +227,7 @@ public class Pay extends AppCompatActivity {
                 charge.setEmail(E_mail);
                 charge.setCard(card);
 
-                PaystackSdk.chargeCard(Pay.this, charge, new Paystack.TransactionCallback() {
+                PaystackSdk.chargeCard(Payy.this, charge, new Paystack.TransactionCallback() {
                     @Override
                     public void onSuccess(Transaction transaction) {
                         parseResponse(transaction.getReference());
@@ -234,8 +235,8 @@ public class Pay extends AppCompatActivity {
 
                     private void parseResponse(String reference) {
                         String message = "Payment Successful - " + reference;
-                        Toast.makeText(Pay.this, message , Toast.LENGTH_SHORT).show();
-                        Intent Finish = new Intent(Pay.this, Payment_Successful.class);
+                        Toast.makeText(Payy.this, message , Toast.LENGTH_SHORT).show();
+                        Intent Finish = new Intent(Payy.this, Payment_Successful.class);
                         //Intent trg = new Intent(Checkout.this,Track.class);
                         Finish.putExtra("reference", Reference);
                         //System.out.println(Reference);
@@ -254,7 +255,7 @@ public class Pay extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable error, Transaction transaction) {
-                        Toast.makeText(Pay.this, "Payment Unsuccessful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Payy.this, "Payment Unsuccessful", Toast.LENGTH_SHORT).show();
                         Log.d("Main Activity", "onError: " + error.getLocalizedMessage());
                         Log.d("Main Activity", "onError: " + error);
                     }
@@ -273,9 +274,9 @@ public class Pay extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             if (result != null) {
-                Toast.makeText(Pay.this, String.format("Gateway response: %s", result), Toast.LENGTH_LONG).show();
+                Toast.makeText(Payy.this, String.format("Gateway response: %s", result), Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(Pay.this, String.format("There was a problem verifying %s on the backend: %s ", this.reference, error), Toast.LENGTH_LONG).show();
+                Toast.makeText(Payy.this, String.format("There was a problem verifying %s on the backend: %s ", this.reference, error), Toast.LENGTH_LONG).show();
                 //dismissDialog();
             }
         }
@@ -344,7 +345,7 @@ public class Pay extends AppCompatActivity {
                 return send;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(Pay.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(Payy.this);
         requestQueue.add(stringRequest);
     }
 }
