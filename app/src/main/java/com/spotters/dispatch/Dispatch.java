@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,7 +44,7 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
     Button Btn;
     ImageView bk;
     ProgressBar loading;
-    String Amount, FN, LN, N, ID, mLocation, mDestination, pickup, dropoff, phone, C_id, C_com;
+    String Amount, FN, LN, N, ID, mLocation, mDestination, pickup, dropoff, phone, C_id, C_com,locate, destinate, locate1, destinate2;
     Spinner spinner1, spinner2;
     ArrayList<String> pickuplist = new ArrayList<>();
     ArrayAdapter<String> pickupadapter;
@@ -59,8 +60,8 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dispatch);
 
-        PL = findViewById(R.id.input_search);
-        DP = findViewById(R.id.input_destination);
+        //PL = findViewById(R.id.input_search);
+        //DP = findViewById(R.id.input_destination);
         Btn = findViewById(R.id.search);
         loading = findViewById(R.id.progressBar);
         recyclerView = findViewById(R.id.rider_recycle);
@@ -85,16 +86,18 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
             @Override
             public void onClick(View view) {
 
-                mLocation = PL.getText().toString().trim();
-                mDestination = DP.getText().toString().trim();
+                Search();
 
-                if(!mLocation.isEmpty() && !mDestination.isEmpty()){
-                    Search();
-                    //System.out.println(mLocation);
-                }else{
-                    PL.setError("Type Location");
-                    DP.setError("Type Destination");
-                }
+//                mLocation = PL.getText().toString().trim();
+//                mDestination = DP.getText().toString().trim();
+//
+//                if(!mLocation.isEmpty() && !mDestination.isEmpty()){
+//                    Search();
+//                    //System.out.println(mLocation);
+//                }else{
+//                    PL.setError("Type Location");
+//                    DP.setError("Type Destination");
+//                }
             }
         });
 
@@ -108,15 +111,25 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray jsonArray = response.getJSONArray("product");
+                    JSONArray jsonArray = response.getJSONArray("all_locations");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String location = jsonObject.optString("pickup_state");
+                        String location = jsonObject.optString("pick_up_location");
                         pickuplist.add(location);
                         pickupadapter = new ArrayAdapter<>(Dispatch.this, android.R.layout.simple_spinner_item, pickuplist);
                         pickupadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinner1.setAdapter(pickupadapter);
+                        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                locate = adapterView.getItemAtPosition(i).toString();
+                            }
 
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
 
                     }
                 } catch (JSONException e) {
@@ -139,14 +152,26 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray jsonArray = response.getJSONArray("product");
+                    JSONArray jsonArray = response.getJSONArray("all_locations");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String destination = jsonObject.optString("dropoff_state");
+                        String destination = jsonObject.optString("drop_off_location");
+                        System.out.println(destination);
                         destinationlist.add(destination);
                         destinationadapter = new ArrayAdapter<>(Dispatch.this, android.R.layout.simple_spinner_item, destinationlist);
                         destinationadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinner2.setAdapter(destinationadapter);
+                        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                destinate = adapterView.getItemAtPosition(i).toString();
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
 
 
                     }
@@ -174,8 +199,8 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
         state.putExtra("Destination_address", mDestination);
 
 
-        pickup = this.PL.getText().toString().trim();
-        dropoff = this.DP.getText().toString().trim();
+        //pickup = this.PL.getText().toString().trim();
+        //dropoff = this.DP.getText().toString().trim();
         //System.out.println(location);
 
         recyclerView.setHasFixedSize(true);
@@ -191,8 +216,8 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
                         Amount = object.getString("price").trim();
                         //FN = object.getString("rider_fn").trim();
                         //LN = object.getString("rider_ln").trim();
-                        pickup = object.getString("pickup_state").trim();
-                        dropoff = object.getString("dropoff_state").trim();
+                        locate1 = object.getString("pickup_state").trim();
+                        destinate2 = object.getString("dropoff_state").trim();
                         C_id = object.getString("id").trim();
                         C_com = object.getString("created_by_company").trim();
                         //phone = object.getString("rider_ph").trim();
@@ -204,15 +229,17 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
                         //String ID = object.getString("reference").trim();
 
                         //int amount = Integer.parseInt(Amount);
-                        show1 show = new show1(pickup, dropoff, Amount);
+                        show1 show = new show1(locate, destinate, Amount);
                         driverlist.add(0,show);
                     }
                     adapter = new dispatch_adapter(driverlist, Dispatch.this);
                     recyclerView.setAdapter(adapter);
 
+                    Btn.setVisibility(View.VISIBLE);
                     loading.setVisibility(View.GONE);
-                    PL.setText(null);
-                    DP.setText(null);
+
+                    //PL.setText(null);
+                    //DP.setText(null);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Btn.setVisibility(View.VISIBLE);
@@ -229,8 +256,8 @@ public class Dispatch extends AppCompatActivity implements dispatch_adapter.Item
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> get = new HashMap<>();
-                get.put("pickup_state", pickup);
-                get.put("dropoff_state", dropoff);
+                get.put("pickup_state", locate);
+                get.put("dropoff_state", destinate);
                 get.put("status", "Online");
                 return get;
             }

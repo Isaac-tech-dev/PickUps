@@ -69,7 +69,11 @@
                         android:text="Dasboard"
                         android:textColor="@color/primary2"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:shadowColor="@color/primary4"
+                        android:shadowDx="0.5"
+                        android:shadowDy="0.5"
+                        android:shadowRadius="1"/>
                 </LinearLayout>
 
 
@@ -96,7 +100,7 @@
                 <!--DISPATCH-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/dispatch"
-                    android:layout_width="150dp"
+                    android:layout_width="320dp"
                     android:layout_height="150dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
@@ -148,6 +152,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:backgroundTint="@color/primary2"
+                    android:visibility="gone"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 

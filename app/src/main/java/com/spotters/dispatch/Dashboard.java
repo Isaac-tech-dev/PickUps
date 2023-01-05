@@ -37,7 +37,7 @@ public class Dashboard extends AppCompatActivity {
         time = findViewById(R.id.prof);
 
         DS = findViewById(R.id.dispatch);
-        COMP = findViewById(R.id.complaint);
+        //COMP = findViewById(R.id.complaint);
         HI = findViewById(R.id.history);
         TR = findViewById(R.id.track);
 
@@ -63,13 +63,13 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-        COMP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent complaint = new Intent(Dashboard.this,Complaint.class);
-                startActivity(complaint);
-            }
-        });
+//        COMP.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent complaint = new Intent(Dashboard.this,Complaint.class);
+//                startActivity(complaint);
+//            }
+//        });
 
         HI.setOnClickListener(new View.OnClickListener() {
             @Override

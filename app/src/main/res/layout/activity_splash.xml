@@ -11,7 +11,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary2">
+        android:background="#00A7E1">
+
+
+
+        <ImageView
+            android:layout_above="@id/textView2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon"/>
 
         <TextView
             android:id="@+id/textView2"

@@ -55,7 +55,7 @@ public class Pay extends AppCompatActivity {
     private TextInputLayout mCardExpiry;
     private TextInputLayout mCardCVV;
     SessionManager sessionManager;
-    String Reference, mLocation, mDestination,rider_id,rider_name,rider_phone, Amount, P_name, P_weight, R_phone, R_name, S_address, R_address, C_id, C_com;
+    String na, mPhone, rid, AMM, Reference, mLocation, mDestination,rider_id,rider_name,rider_phone, Amount, P_name, P_weight, R_phone, R_name, S_address, R_address, C_id, C_com;
     int amount;
 
     @SuppressLint("MissingInflatedId")
@@ -84,7 +84,7 @@ public class Pay extends AppCompatActivity {
 
         HashMap<String, String> user = sessionManager.getUserInfo();
         fid = user.get(sessionManager.ID);
-        String mPhone = user.get(sessionManager.PHONE);
+        mPhone = user.get(sessionManager.PHONE);
         String mEMAIL = user.get(sessionManager.EMAIL);
         E_mail = mEMAIL;
 
@@ -97,7 +97,7 @@ public class Pay extends AppCompatActivity {
         //int randtext = random.nextInt(10000);
         Reference = getIntent().getStringExtra("order_id");
         //System.out.println(Reference);
-        final String na = fn + " " + ln;
+        na = fn + " " + ln;
 
         //rider_id = getIntent().getStringExtra("ID");
 
@@ -122,8 +122,8 @@ public class Pay extends AppCompatActivity {
         //final String mEmail = getIntent().getStringExtra("Email");
 
         //final int KMM = Distance;
-        String rid = rider_id;
-        final String AMM = Amount;
+        rid = rider_id;
+        AMM = Amount;
         //final String EMM = String.valueOf(mEMAIL);
 
         //phh.setText(mPhone);
@@ -149,14 +149,15 @@ public class Pay extends AppCompatActivity {
             }
         });
 //
+        //pass(fid,na,mPhone,rid,mLocation,mDestination,Reference,AMM,P_name,P_weight,R_name,R_phone,S_address,R_address,rider_name, rider_phone, C_id, C_com);
 
-        pass(fid,na,mPhone,rid,mLocation,mDestination,Reference,AMM,P_name,P_weight,R_name,R_phone,S_address,R_address,rider_name, rider_phone, C_id, C_com);
+
     }
-
     private void initializePaystack() {
         PaystackSdk.initialize(getApplicationContext());
         PaystackSdk.setPublicKey(PSTK_PUBLIC_KEY);
     }
+
 
     private void initializeFormVariables() {
         mCardNumber = findViewById(R.id.til_card_number);
@@ -197,6 +198,8 @@ public class Pay extends AppCompatActivity {
                 Intent intent = getIntent();
                 button.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
+
+                pass();
                 //String email = user.get(sessionManager.EMAIL);
 
 
@@ -302,7 +305,7 @@ public class Pay extends AppCompatActivity {
         }
     }
 
-    private void pass(String ID, String N, String P, String RID, String PL, String DE, String Ref, String cash, String PN,String PW, String RN, String RP, String SA, String RA, String RNA, String RPH, String CID, String CCOM){
+    private void pass(){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_MOVE, new Response.Listener<String>() {
             @Override
@@ -319,24 +322,24 @@ public class Pay extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> send = new HashMap<>();
-                send.put("sender_id", ID);
-                send.put("sender_name", N);
-                send.put("sender_phone", P);
+                send.put("sender_id", fid);
+                send.put("sender_name", na);
+                send.put("sender_phone", mPhone);
                 //send.put("rider_id", RID);
-                send.put("sender_state", PL);
-                send.put("receiver_state" , DE);
-                send.put("sender_address", SA);
-                send.put("receiver_address" , RA);
-                send.put("order_id", Ref);
-                send.put("amount", cash);
-                send.put("package_name", PN);
-                send.put("package_weight", PW);
-                send.put("receiver_name", RN);
-                send.put("receiver_phone", RP);
+                send.put("sender_state", mLocation);
+                send.put("receiver_state" , mDestination);
+                send.put("sender_address", S_address);
+                send.put("receiver_address" , R_address);
+                send.put("order_id", Reference);
+                send.put("amount", AMM);
+                send.put("package_name", P_name);
+                send.put("package_weight", P_weight);
+                send.put("receiver_name", R_name);
+                send.put("receiver_phone", R_phone);
                 //send.put("rider_name", RNA);
                 //send.put("rider_phone", RPH);
-                send.put("created_by_id", CID);
-                send.put("created_by_company", CCOM);
+                send.put("created_by_id", C_id);
+                send.put("created_by_company", C_com);
                 send.put("status", "Pending");
                 return send;
             }
