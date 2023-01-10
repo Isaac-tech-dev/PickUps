@@ -31,7 +31,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     Button Btn;
     ProgressBar loading;
 
-    private static String URL_SIGNUP = "https://iufmp.spotters.tech/android/userreg.php";
+    private static String URL_SIGNUP = "https://spotters.tech/dispatch-it/android/userreg.php";
 
     @SuppressLint("MissingInflatedId")
     @Override

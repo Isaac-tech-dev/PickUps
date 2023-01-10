@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -28,10 +29,11 @@ import java.util.Map;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
     EditText phone, password;
+    TextView forgot;
     ProgressBar loading;
     MaterialButton Btn;
 
-    private static String URL_LOGIN = "https://iufmp.spotters.tech/android/login.php";
+    private static String URL_LOGIN = "https://spotters.tech/dispatch-it/android/user_login.php";
     SessionManager sessionManager;
 
     @Override
@@ -45,8 +47,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         password = findViewById(R.id.password);
         Btn = findViewById(R.id.button);
         loading = findViewById(R.id.progressBar);
+        forgot = findViewById(R.id.forgot);
 
         Btn.setOnClickListener(this);
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent up = new Intent(Login.this, forgot_password.class);
+                startActivity(up);
+            }
+        });
     }
 
     @Override
@@ -82,7 +92,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             String phone = object.getString("phone").trim();
                             String email = object.getString("email").trim();
                             String id = object.getString("id").trim();
-                            //String sign_up_date = object.getString("sign_up_date").trim();
+                            String sign_up_date = object.getString("sign_up_date").trim();
 
                             sessionManager.createSession(firstname, lastname, phone, email, id);
 
@@ -99,7 +109,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(Login.this, "Login Failed!!!!!" + e.toString(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Login.this, "Login Failed!!!!!" + e.toString(), Toast.LENGTH_SHORT).show();
                     Btn.setVisibility(View.VISIBLE);
                     loading.setVisibility(View.GONE);
                 }

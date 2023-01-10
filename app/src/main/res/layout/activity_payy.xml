@@ -77,7 +77,7 @@
                 android:id="@+id/til_card_expiry"
                 android:layout_alignParentLeft="true"
                 android:padding="15dp"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:hint="Card Expiry"
                 android:background="@drawable/border_grey"/>
@@ -86,7 +86,7 @@
                 android:id="@+id/til_card_cvv"
                 android:layout_alignParentRight="true"
                 android:padding="15dp"
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:hint="CVV"
                 android:inputType="number"

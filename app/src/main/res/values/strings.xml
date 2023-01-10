@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dispatch IT</string>
+    <string name="app_name">PickUps</string>
     <string name="app_tool"></string>
 
     <!-- Hardcoding the price is for demo purpose only.
